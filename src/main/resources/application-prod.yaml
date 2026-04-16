@@ -1,0 +1,19 @@
+management:
+  server:
+    port: 8081
+  endpoint:
+    health:
+      enabled: true
+      probes:
+        enabled: true        # Enables /actuator/health/liveness and /readiness
+      show-details: never    # Don't expose sensitive internals externally
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+server:
+  shutdown: graceful         # Spring Boot drains in-flight requests before shutdown
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 30s

@@ -20,10 +20,16 @@ class Application {
             val name = request.pathVariable("name")
             ServerResponse.ok().bodyValue(HelloResponse("Hello, $name!"))
         }
+        
+        GET("/env") {
+            val envMap = System.getenv().toMap()
+            ServerResponse.ok().bodyValue(EnvironmentResponse(envMap))
+        }
     }
 }
 
 data class HelloResponse(val message: String)
+data class EnvironmentResponse(val environmentVariables: Map<String, String>)
 
 fun main(args: Array<String>) {
     runApplication<Application>(*args)
